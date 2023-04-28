@@ -78,7 +78,7 @@ npsSummary = PythonOperator(
     python_callable = execSQL,
     params = {
         'schema' : 'jhongy1994',
-        'table': 'nps',
+        'table': 'nps_summary',
         'sql' : """SELECT
             LEFT(created_at, 10) AS day,
             ROUND((SUM(CASE WHEN score >= 9 THEN 1 ELSE 0 END) - SUM(CASE WHEN score BETWEEN 0 AND 6 THEN 1 ELSE 0 END)) * 100.0 / COUNT(*), 2) AS nps
