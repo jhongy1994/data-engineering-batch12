@@ -57,11 +57,11 @@ dag = DAG(
     catchup = False
 )
 
-execsql = PythonOperator(
-    task_id = 'execsql',
+channelSummary = PythonOperator(
+    task_id = 'channelSummary',
     python_callable = execSQL,
     params = {
-        'schema' : 'keeyong',
+        'schema' : 'jhongy1994',
         'table': 'channel_summary',
         'sql' : """SELECT
 	      DISTINCT A.userid,
@@ -72,3 +72,22 @@ execsql = PythonOperator(
     },
     dag = dag
 )
+
+npsSummary = PythonOperator(
+    task_id = 'npsSummary',
+    python_callable = execSQL,
+    params = {
+        'schema' : 'jhongy1994',
+        'table': 'nps',
+        'sql' : """SELECT
+            LEFT(created_at, 10) AS day,
+            ROUND((SUM(CASE WHEN score >= 9 THEN 1 ELSE 0 END) - SUM(CASE WHEN score BETWEEN 0 AND 6 THEN 1 ELSE 0 END)) * 100.0 / COUNT(*), 2) AS nps
+            FROM
+                jhongy1994.nps
+            GROUP BY
+                1;"""
+    },
+    dag = dag
+)
+
+channelSummary >> npsSummary
