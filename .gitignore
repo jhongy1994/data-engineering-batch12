@@ -1,2 +1,5 @@
 logs/
 dags/__pycache__/
+dags/plugins/__pycache__/
+data/google-sheet.json
+data/spreadsheet_copy_testing.csv

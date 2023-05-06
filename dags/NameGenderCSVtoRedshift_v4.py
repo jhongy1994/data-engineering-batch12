@@ -5,7 +5,7 @@ from airflow.providers.postgres.hooks.postgres import PostgresHook
 
 from datetime import datetime
 from datetime import timedelta
-# from plugins import slack
+from plugins import slack
 
 import requests
 import logging
@@ -56,13 +56,14 @@ def load(**context):
 dag_second_assignment = DAG(
     dag_id = 'name_gender_v4',
     start_date = datetime(2023,4,6), # 날짜가 미래인 경우 실행이 안됨
-    schedule = '0 2 * * *',  # 적당히 조절
+    # schedule = '0 2 * * *',  # 적당히 조절
+    schedule = '@once',
     max_active_runs = 1,
     catchup = False,
     default_args = {
         'retries': 1,
         'retry_delay': timedelta(minutes=3),
-        # 'on_failure_callback': slack.on_failure_callback,
+        'on_failure_callback': slack.on_failure_callback,
     }
 )
 
@@ -86,7 +87,7 @@ load = PythonOperator(
     task_id = 'load',
     python_callable = load,
     params = {
-        'schema': 'keeyong',   ## 자신의 스키마로 변경
+        'schema': 'jhongy1994',   ## 자신의 스키마로 변경
         'table': 'name_gender'
     },
     dag = dag_second_assignment)

@@ -87,9 +87,9 @@ dag = DAG(
 
 sheets = [
     {
-        "url": "https://docs.google.com/spreadsheets/d/1hW-_16OqgctX-_lXBa0VSmQAs98uUnmfOqvDYYjuE50/",
+        "url": "https://docs.google.com/spreadsheets/d/1CzVLxY2FDmgIxPC6ZcawUQMEAAqamiXKNKhh0mI9Jmw/",
         "tab": "Test",
-        "schema": "keeyong",
+        "schema": "jhongy1994",
         "table": "spreadsheet_copy_testing"
     }
 ]
